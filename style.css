@@ -1,0 +1,38 @@
+body {
+  margin: auto;
+}
+
+.result {
+  font-size: 40px;
+  text-align: right;
+  height: 50px;
+}
+.calculator {
+  width: 240px;
+  height: 300px;
+  text-align: center;
+  margin: auto;
+}
+.row {
+  padding: 0 0 1px 0;
+}
+.col {
+  padding: 12px 0 12px 0;
+  margin-right: 1px;
+}
+.col-3 {
+  /* padding: 12px 0 12px 0; */
+  /* margin-left: 1px; */
+  /* text-align: center; */
+}
+.white {
+  background-color: #87687b;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.ghostwhite {
+  background-color: #ac9ba3;
+}
