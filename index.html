@@ -14,35 +14,35 @@
   </head>
   <body>
     <div class="calculator">
-      <div class="result" id="result">0</div>
+      <div class="result" id="result" onchange="saveResult()">0</div>
       <div class="row">
-        <div class="col white">C</div>
-        <div class="col white">+/-</div>
-        <div class="col white">%</div>
-        <div class="col orange">:</div>
+        <div class="col white" onclick="remove()">C</div>
+        <div class="col white" onclick="negative()">+/-</div>
+        <div class="col white" onclick="percent()">%</div>
+        <div class="col orange" id="division" onclick="divide()">÷</div>
       </div>
       <div class="row">
-        <div class="col ghostwhite" onclick="input()">7</div>
-        <div class="col ghostwhite">8</div>
-        <div class="col ghostwhite">9</div>
-        <div class="col orange">X</div>
+        <div class="col ghostwhite" id="7" onclick="input(id)">7</div>
+        <div class="col ghostwhite" id="8" onclick="input(id)">8</div>
+        <div class="col ghostwhite" id="9" onclick="input(id)">9</div>
+        <div class="col orange" id="multiplication" onclick="multi()">X</div>
       </div>
       <div class="row">
-        <div class="col ghostwhite">4</div>
-        <div class="col ghostwhite">5</div>
-        <div class="col ghostwhite">6</div>
-        <div class="col orange">-</div>
+        <div class="col ghostwhite" id="4" onclick="input(id)">4</div>
+        <div class="col ghostwhite" id="5" onclick="input(id)">5</div>
+        <div class="col ghostwhite" id="6" onclick="input(id)">6</div>
+        <div class="col orange" id="subtraction" onclick="sub()">-</div>
       </div>
       <div class="row">
-        <div class="col ghostwhite">1</div>
-        <div class="col ghostwhite">2</div>
-        <div class="col ghostwhite">3</div>
-        <div class="col orange">+</div>
+        <div class="col ghostwhite" id="1" onclick="input(id)">1</div>
+        <div class="col ghostwhite" id="2" onclick="input(id)">2</div>
+        <div class="col ghostwhite" id="3" onclick="input(id)">3</div>
+        <div class="col orange" id="addition" onclick="add()">+</div>
       </div>
       <div class="row">
-        <div class="col-6 ghostwhite">0</div>
-        <div class="col ghostwhite">,</div>
-        <div class="col orange">=</div>
+        <div class="col-6 ghostwhite" id="0" onclick="input(id)">0</div>
+        <div class="col ghostwhite" onclick="comma()">,</div>
+        <div class="col orange" onclick="showResult()">=</div>
       </div>
     </div>
   </body>
