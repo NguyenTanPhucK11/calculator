@@ -11,9 +11,51 @@ function input(id) {
   elemResult.innerHTML = result;
 }
 
-let remove = () => {
+let restart = () => {
   reset();
-  localStorage.setItem("result", result);
+};
+
+let add = () => {
+  localStorage.setItem("result", elemResult.textContent);
+  localStorage.setItem("math", "add");
+  reset();
+};
+let sub = () => {
+  localStorage.setItem("result", elemResult.textContent);
+  localStorage.setItem("math", "sub");
+  reset();
+};
+let multi = () => {
+  localStorage.setItem("result", elemResult.textContent);
+  localStorage.setItem("math", "multi");
+  reset();
+};
+let divide = () => {
+  localStorage.setItem("result", elemResult.textContent);
+  localStorage.setItem("math", "divide");
+  reset();
+};
+
+let showResult = () => {
+  let math = localStorage.getItem("math");
+  let a = parseFloat(localStorage.getItem("result"));
+  let b = parseFloat(elemResult.textContent);
+  switch (math) {
+    case "add":
+      result = a + b;
+      break;
+    case "sub":
+      result = a - b;
+      break;
+    case "multi":
+      result = a * b;
+      break;
+    case "divide":
+      result = a / b;
+      break;
+  }
+
+  elemResult.innerHTML = result.toPrecision();
 };
 
 let saveResult = () => {
