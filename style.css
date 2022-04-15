@@ -8,6 +8,16 @@ body {
   text-align: right;
   height: 50px;
 }
+.showCal {
+  font-size: 20px;
+  text-align: right;
+  height: 50px;
+}
+.cal {
+  font-size: 40px;
+  text-align: right;
+  height: 50px;
+}
 .calculator {
   width: 240px;
   height: 300px;
@@ -26,7 +36,7 @@ body {
   margin: 1px;
 }
 .col-6 {
-  padding: 0px;
+  padding: 0;
 }
 
 .white {

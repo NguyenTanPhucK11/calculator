@@ -14,7 +14,7 @@
   </head>
   <body>
     <div class="calculator">
-      <div class="result" id="result" onchange="Update()">0</div>
+      <div class="result" id="result">0</div>
       <div class="row">
         <div class="col white" id="clear" onclick="Clear()">AC</div>
         <div class="col white" onclick="Negative()">+/-</div>
@@ -45,8 +45,10 @@
           <div class="zero ghostwhite" id="0" onclick="Input(id)">0</div>
         </div>
         <div class="col ghostwhite" onclick="Comma()">,</div>
-        <div class="col orange" onclick="Calculate()">=</div>
+        <div class="col orange" onclick="ShowResult()">=</div>
       </div>
+      <div class="showCal" id="showCal">0</div>
+      <div class="cal" id="cal">0</div>
     </div>
   </body>
 
