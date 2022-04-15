@@ -15,19 +15,18 @@ body {
   margin: auto;
 }
 .row {
-  padding: 0 0 1px 0;
+  /* padding: 0 0 1px 0; */
 }
 .col {
   padding: 12px 0 12px 0;
-  margin-left: 1px;
-  margin-right: 1px;
+  margin: 1px;
 }
-
+.zero {
+  padding: 12px;
+  margin: 1px;
+}
 .col-6 {
-  /* width: 49.3%;
-  padding: 12px 0 12px 0;
-  margin-right: 1px;
-  margin-left: 1px; */
+  padding: 0px;
 }
 
 .white {

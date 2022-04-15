@@ -1,6 +1,7 @@
 var elemResult = document.getElementById("result");
 // var checkComma = false;
 
+
 function input(id) {
   let result = elemResult.textContent;
   let elemId = document.getElementById(id);
@@ -18,22 +19,18 @@ let restart = () => {
 let add = () => {
   localStorage.setItem("result", elemResult.textContent);
   localStorage.setItem("math", "add");
-  reset();
 };
 let sub = () => {
   localStorage.setItem("result", elemResult.textContent);
   localStorage.setItem("math", "sub");
-  reset();
 };
 let multi = () => {
   localStorage.setItem("result", elemResult.textContent);
   localStorage.setItem("math", "multi");
-  reset();
 };
 let divide = () => {
   localStorage.setItem("result", elemResult.textContent);
   localStorage.setItem("math", "divide");
-  reset();
 };
 
 let showResult = () => {
