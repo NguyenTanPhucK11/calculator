@@ -1,86 +1,123 @@
-var result = 0;
-var math = "";
+var math;
+var result = null;
 var innerResult = 0;
+var priorResult = null;
 var isClear = true;
-var elemResult = document.getElementById("result");
-
+var isPrior = false;
 var isMath = false;
+var isComma = false;
+var elemResult = document.getElementById("result");
+var elemClear = document.getElementById("clear");
 
 function Input(id) {
   if (isMath) Clear();
+  elemClear.innerHTML = "C";
   let elemId = document.getElementById(id);
-  elemResult.textContent == 0
-    ? (innerResult = elemId.textContent)
-    : (innerResult = innerResult + elemId.textContent);
+  console.log(isComma);
+  if (elemResult.textContent == 0) {
+    innerResult = isComma
+      ? elemResult.textContent + elemId.textContent
+      : elemId.textContent;
+  } else innerResult = elemResult.textContent + elemId.textContent;
   elemResult.innerHTML = innerResult;
+  isClear = true;
   isMath = false;
 }
 
 let Clear = () => {
-  isClear ? (elemResult.innerHTML = 0) : AllClear();
+  isComma = false;
+
+  if (isClear) {
+    elemResult.innerHTML = 0;
+    elemClear.innerHTML = "AC";
+    isClear = false;
+  } else {
+    AllClear();
+  }
 };
 
 let AllClear = () => {
-  result = 0;
+  math;
+  result = null;
+  innerResult = 0;
+  priorResult = null;
+  isClear = true;
+  isPrior = false;
+  isMath = false;
   elemResult.innerHTML = 0;
 };
 
 let Add = () => {
   isMath = true;
-  Calculate();
-
+  if (result == null) result = elemResult.textContent;
   math = "add";
 };
 let Sub = () => {
   isMath = true;
-  Calculate();
+  if (result == null) result = elemResult.textContent;
   math = "sub";
 };
 let Multi = () => {
   isMath = true;
-  Calculate();
+  if (result == null) result = elemResult.textContent;
+  console.log(result);
   math = "multi";
 };
 let Divide = () => {
+  isMath = true;
+  if (result == null) result = elemResult.textContent;
   math = "divide";
 };
+
+let Calculate = () => {
+  let a, b;
+  a = parseFloat(result);
+  b = parseFloat(innerResult);
+  console.log(a, b);
+  switch (math) {
+    case "add":
+      result = sum(a, b);
+      console.log(result);
+      isPrior = false;
+      break;
+    case "sub":
+      result = sub(a, b);
+      isPrior = false;
+      break;
+    case "multi":
+      result = mul(a, b);
+      isPrior = true;
+      break;
+    case "divide":
+      result = div(a, b);
+      isPrior = true;
+      break;
+  }
+
+  elemResult.innerHTML = parseFloat(result.toFixed(10));
+};
+
+let ShowResult = () => {
+  Calculate();
+};
+
 let Negative = () => {
   elemResult.innerHTML = 0 - elemResult.textContent;
   innerResult = elemResult.textContent;
 };
 
 let Percent = () => {
-  return (elemResult.innerHTML = elemResult.textContent / 100);
+  elemResult.innerHTML = elemResult.textContent / 100;
+  result = elemResult.textContent;
 };
 
 let Comma = () => {
-  checkComma = true;
+  isComma = true;
+
   return (elemResult.innerHTML = elemResult.textContent + ".");
 };
 
-let Calculate = () => {
-  let a = parseFloat(result);
-  let b = parseFloat(innerResult);
-  console.log(a, b);
-  switch (math) {
-    case "add":
-      result = a + b;
-      break;
-    case "sub":
-      result = a - b;
-      break;
-    case "multi":
-      result = a * b;
-      break;
-    case "divide":
-      result = a / b;
-      break;
-  }
-
-  elemResult.innerHTML = result;
-};
-
-let ShowResult = () => {
-  Calculate();
-  //   math = "";
-};
+let sum = (a, b) => a + b;
+let sub = (a, b) => a - b;
+let mul = (a, b) => a * b;
+let div = (a, b) => a / b;

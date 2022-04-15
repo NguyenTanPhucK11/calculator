@@ -14,9 +14,9 @@
   </head>
   <body>
     <div class="calculator">
-      <div class="result" id="result">0</div>
+      <div class="result" id="result" onchange="Update()">0</div>
       <div class="row">
-        <div class="col white" onclick="Clear()">AC</div>
+        <div class="col white" id="clear" onclick="Clear()">AC</div>
         <div class="col white" onclick="Negative()">+/-</div>
         <div class="col white" onclick="Percent()">%</div>
         <div class="col orange" id="division" onclick="Divide()">÷</div>
