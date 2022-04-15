@@ -1,42 +1,67 @@
+var result = 0;
+var math = "";
+var innerResult = 0;
+var isClear = true;
 var elemResult = document.getElementById("result");
-// var checkComma = false;
 
+var isMath = false;
 
-function input(id) {
-  let result = elemResult.textContent;
+function Input(id) {
+  if (isMath) Clear();
   let elemId = document.getElementById(id);
-
-  result == 0
-    ? (result = elemId.textContent)
-    : (result = result + elemId.textContent);
-  elemResult.innerHTML = result;
+  elemResult.textContent == 0
+    ? (innerResult = elemId.textContent)
+    : (innerResult = innerResult + elemId.textContent);
+  elemResult.innerHTML = innerResult;
+  isMath = false;
 }
 
-let restart = () => {
-  reset();
+let Clear = () => {
+  isClear ? (elemResult.innerHTML = 0) : AllClear();
 };
 
-let add = () => {
-  localStorage.setItem("result", elemResult.textContent);
-  localStorage.setItem("math", "add");
-};
-let sub = () => {
-  localStorage.setItem("result", elemResult.textContent);
-  localStorage.setItem("math", "sub");
-};
-let multi = () => {
-  localStorage.setItem("result", elemResult.textContent);
-  localStorage.setItem("math", "multi");
-};
-let divide = () => {
-  localStorage.setItem("result", elemResult.textContent);
-  localStorage.setItem("math", "divide");
+let AllClear = () => {
+  result = 0;
+  elemResult.innerHTML = 0;
 };
 
-let showResult = () => {
-  let math = localStorage.getItem("math");
-  let a = parseFloat(localStorage.getItem("result"));
-  let b = parseFloat(elemResult.textContent);
+let Add = () => {
+  isMath = true;
+  Calculate();
+
+  math = "add";
+};
+let Sub = () => {
+  isMath = true;
+  Calculate();
+  math = "sub";
+};
+let Multi = () => {
+  isMath = true;
+  Calculate();
+  math = "multi";
+};
+let Divide = () => {
+  math = "divide";
+};
+let Negative = () => {
+  elemResult.innerHTML = 0 - elemResult.textContent;
+  innerResult = elemResult.textContent;
+};
+
+let Percent = () => {
+  return (elemResult.innerHTML = elemResult.textContent / 100);
+};
+
+let Comma = () => {
+  checkComma = true;
+  return (elemResult.innerHTML = elemResult.textContent + ".");
+};
+
+let Calculate = () => {
+  let a = parseFloat(result);
+  let b = parseFloat(innerResult);
+  console.log(a, b);
   switch (math) {
     case "add":
       result = a + b;
@@ -52,26 +77,10 @@ let showResult = () => {
       break;
   }
 
-  elemResult.innerHTML = result.toPrecision();
+  elemResult.innerHTML = result;
 };
 
-let saveResult = () => {
-  return localStorage.getItem("result", result);
-};
-
-let negative = () => {
-  return (elemResult.innerHTML = 0 - elemResult.textContent);
-};
-
-let percent = () => {
-  return (elemResult.innerHTML = elemResult.textContent / 100);
-};
-
-let comma = () => {
-  checkComma = true;
-  return (elemResult.innerHTML = elemResult.textContent + ".");
-};
-
-let reset = () => {
-  return (elemResult.innerHTML = 0);
+let ShowResult = () => {
+  Calculate();
+  //   math = "";
 };
