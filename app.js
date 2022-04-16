@@ -1,13 +1,14 @@
 var math;
-var preMath;
-var result = null;
+var result;
 var innerResult = 0;
+var rtResult; // real-time Result
 var priorResult = null;
 var isClear = true;
 var isPrior = false;
 var isMath = false;
 var isComma = false;
 var isShowCal = false;
+var isEqual = false;
 var showCal = []; // show calculate
 var innerCal = "";
 var elemResult = document.getElementById("result");
@@ -16,7 +17,13 @@ var elemCal = document.getElementById("cal");
 var elemShowCal = document.getElementById("showCal");
 
 function Input(id) {
-  if (isMath) Clear();
+  if (isMath) {
+    showCal.push(math);
+    Clear();
+
+    isMath = false;
+  }
+
   elemClear.innerHTML = "C";
   let elemId = document.getElementById(id);
   if (elemResult.textContent == 0) {
@@ -25,107 +32,70 @@ function Input(id) {
       : elemId.textContent;
   } else innerResult = elemResult.textContent + elemId.textContent;
   elemResult.innerHTML = innerResult;
-  elemCal.innerHTML =
-    result == null ? innerResult : parseFloat(result) + parseFloat(innerResult);
+
+  if (showCal.length == 0) rtResult = innerResult;
+  else rtResult = Calculate(parseFloat(result), math, parseFloat(innerResult));
+
+  elemCal.innerHTML = rtResult;
+  console.log("real time Result: " + rtResult);
 
   console.log(showCal);
   innerCal = "";
-  for (let val in showCal) innerCal += showCal[val] + " ";
+  for (let val in showCal) {
+    switch (showCal[val]) {
+      case "add":
+        showCal[val] = "+";
+        break;
+      case "sub":
+        showCal[val] = "-";
+        break;
+      case "mul":
+        showCal[val] = "*";
+        break;
+      case "div":
+        showCal[val] = ":";
+        break;
+    }
+    innerCal += showCal[val] + " ";
+  }
   elemShowCal.innerHTML = innerCal + " " + innerResult;
   isClear = true;
-  isMath = false;
 }
 
-let Clear = () => {
-  isComma = false;
-  if (isClear) {
-    elemResult.innerHTML = 0;
-    elemClear.innerHTML = "AC";
-    isClear = false;
-  } else {
-    AllClear();
-  }
+let RecognizeCal = (id) => {
+  math = id;
+  showCal.push(elemResult.innerHTML);
+  ShowResult();
+  isMath = true;
 };
 
-let AllClear = () => {
-  math;
-  preMath;
-  result = null;
-  innerResult = 0;
-  priorResult = null;
-  isClear = true;
-  isPrior = false;
-  isMath = false;
-  isComma = false;
-  isShowCal = false;
-  showCal = [];
-  elemResult.innerHTML = 0;
-};
-
-let Add = () => {
-  isMath = true;
-  if (result == null) result = elemResult.textContent;
-  else
-    result =
-      result == null
-        ? innerResult
-        : parseFloat(result) + parseFloat(innerResult);
-  elemResult.innerHTML = result;
-  math = "add";
-  showCal.push(elemResult.textContent, "+");
-  console.log(showCal);
-};
-let Sub = () => {
-  isMath = true;
-  if (result == null) result = elemResult.textContent;
-
-  console.log(result);
-  showCal.push(elemResult.textContent, "-");
-  math = "sub";
-};
-let Multi = () => {
-  isMath = true;
-  if (result == null) result = elemResult.textContent;
-  showCal.push(elemResult.textContent, "*");
-  math = "multi";
-};
-let Divide = () => {
-  isMath = true;
-  if (result == null) result = elemResult.textContent;
-  showCal.push(elemResult.textContent, ":");
-  math = "divide";
-};
-
-let Calculate = () => {
-  let a, b;
-  a = parseFloat(result);
-  b = parseFloat(innerResult);
-  switch (math) {
+let Calculate = (a, id, b) => {
+  math = id;
+  switch (id) {
     case "add":
-      result = sum(a, b);
       isPrior = false;
-      showCal.push("+", b);
+      rtResult = sum(a, b);
       break;
     case "sub":
-      result = sub(a, b);
       isPrior = false;
-      showCal.push("-", b);
+      rtResult = sub(a, b);
       break;
-    case "multi":
-      result = mul(a, b);
+    case "mul":
+      rtResult = mul(a, b);
       isPrior = true;
-      showCal.push("*", b);
       break;
-    case "divide":
-      result = div(a, b);
+    case "div":
+      rtResult = div(a, b);
       isPrior = true;
-      showCal.push(":", b);
       break;
   }
+
+  return parseFloat(rtResult.toFixed(10));
 };
 
 let ShowResult = () => {
-  Calculate();
+  result = parseFloat(rtResult ?? result);
+
   elemResult.innerHTML = parseFloat(result.toFixed(10));
 };
 
@@ -143,6 +113,31 @@ let Comma = () => {
   isComma = true;
 
   return (elemResult.innerHTML = elemResult.textContent + ".");
+};
+
+let Clear = () => {
+  isComma = false;
+  if (isClear) {
+    elemResult.innerHTML = 0;
+    elemClear.innerHTML = "AC";
+    isClear = false;
+  } else AllClear();
+};
+
+let AllClear = () => {
+  math;
+  result = null;
+  innerResult = 0;
+  priorResult = null;
+  isClear = true;
+  isPrior = false;
+  isMath = false;
+  isComma = false;
+  isShowCal = false;
+  showCal = [];
+  elemResult.innerHTML = 0;
+  elemCal.innerHTML = 0;
+  elemShowCal.innerHTML = 0;
 };
 
 let sum = (a, b) => a + b;

@@ -11,12 +11,12 @@ body {
 .showCal {
   font-size: 20px;
   text-align: right;
-  height: 50px;
 }
 .cal {
   font-size: 40px;
   text-align: right;
   height: 50px;
+  color: lightgray;
 }
 .calculator {
   width: 240px;
