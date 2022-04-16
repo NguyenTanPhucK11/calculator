@@ -26,9 +26,7 @@ function Input(id) {
   } else innerResult = elemResult.textContent + elemId.textContent;
   elemResult.innerHTML = innerResult;
   elemCal.innerHTML =
-    result == null
-      ? "= " + innerResult
-      : "= " + parseFloat(result) + parseFloat(innerResult);
+    result == null ? innerResult : parseFloat(result) + parseFloat(innerResult);
 
   console.log(showCal);
   innerCal = "";
@@ -67,6 +65,12 @@ let AllClear = () => {
 let Add = () => {
   isMath = true;
   if (result == null) result = elemResult.textContent;
+  else
+    result =
+      result == null
+        ? innerResult
+        : parseFloat(result) + parseFloat(innerResult);
+  elemResult.innerHTML = result;
   math = "add";
   showCal.push(elemResult.textContent, "+");
   console.log(showCal);
@@ -74,6 +78,8 @@ let Add = () => {
 let Sub = () => {
   isMath = true;
   if (result == null) result = elemResult.textContent;
+
+  console.log(result);
   showCal.push(elemResult.textContent, "-");
   math = "sub";
 };
