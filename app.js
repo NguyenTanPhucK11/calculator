@@ -32,13 +32,7 @@ function Input(id) {
       : elemId.textContent;
   } else innerResult = elemResult.textContent + elemId.textContent;
   elemResult.innerHTML = innerResult;
-
-  if (showCal.length == 0) rtResult = innerResult;
-  else rtResult = Calculate(parseFloat(result), math, parseFloat(innerResult));
-
-  elemCal.innerHTML = rtResult;
-  console.log("real time Result: " + rtResult);
-
+  Update();
   console.log(showCal);
   innerCal = "";
   for (let val in showCal) {
@@ -61,7 +55,13 @@ function Input(id) {
   elemShowCal.innerHTML = innerCal + " " + innerResult;
   isClear = true;
 }
+let Update = () => {
+  if (showCal.length == 0) rtResult = innerResult;
+  else rtResult = Calculate(parseFloat(result), math, parseFloat(innerResult));
 
+  elemCal.innerHTML = rtResult;
+  console.log("real time Result: " + rtResult);
+};
 let RecognizeCal = (id) => {
   math = id;
   showCal.push(elemResult.innerHTML);
@@ -88,25 +88,29 @@ let Calculate = (a, id, b) => {
       rtResult = div(a, b);
       isPrior = true;
       break;
+    default:
+      rtResult = b;
+      break;
   }
-
   return parseFloat(rtResult.toFixed(10));
 };
 
 let ShowResult = () => {
   result = parseFloat(rtResult ?? result);
-
   elemResult.innerHTML = parseFloat(result.toFixed(10));
 };
 
 let Negative = () => {
   elemResult.innerHTML = 0 - elemResult.textContent;
   innerResult = elemResult.textContent;
+
+  Update();
 };
 
 let Percent = () => {
   elemResult.innerHTML = elemResult.textContent / 100;
-  result = elemResult.textContent;
+  innerResult = elemResult.textContent;
+  Update();
 };
 
 let Comma = () => {
