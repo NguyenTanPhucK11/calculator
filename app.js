@@ -64,7 +64,7 @@ let Update = () => {
 };
 let RecognizeCal = (id) => {
   math = id;
-  showCal.push(elemResult.innerHTML);
+  if (!isMath) showCal.push(elemResult.innerHTML);
   ShowResult();
   isMath = true;
 };
