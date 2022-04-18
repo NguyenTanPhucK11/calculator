@@ -72,22 +72,24 @@ let RecognizeCal = (id) => {
   }
 
   math = id;
-  if (!isMath) showCal.push(elemResult.innerHTML);
-  if (id == "mul" || id == "div") {
-    preResult = preResult ?? result;
-    if (priorResult == innerResult) rtResult = priorResult;
-    isPrior = true;
-  } else if (id == "add" || id == "sub") {
-    rtResult =
-      preResult == null
-        ? rtResult
-        : Calculate(parseFloat(preResult), preMath, parseFloat(rtResult));
-    console.log(preResult + " " + preMath + " " + rtResult);
-    isPrior = false;
-    preResult = null;
-    preMath = id;
+  if (!isMath) {
+    showCal.push(elemResult.innerHTML);
+    if (id == "mul" || id == "div") {
+      preResult = preResult ?? result;
+      if (priorResult == innerResult) rtResult = priorResult;
+      isPrior = true;
+    } else if (id == "add" || id == "sub") {
+      rtResult =
+        preResult == null
+          ? rtResult
+          : Calculate(parseFloat(preResult), preMath, parseFloat(rtResult));
+      console.log(preResult + " " + preMath + " " + rtResult);
+      isPrior = false;
+      preResult = null;
+      preMath = id;
+    }
   }
-  //   console.log("prePrior : " + prePrior);
+
   if (isPrior && priorResult != innerResult)
     priorResult = Calculate(
       parseFloat(priorResult),
