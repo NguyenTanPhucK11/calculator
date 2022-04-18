@@ -189,10 +189,10 @@ let AllClear = () => {
   isEqual = false;
   showCal = []; // show calculate
   innerCal = "";
-  elemResult.innerHTML = "";
+  elemResult.innerHTML = "0";
 
-  elemCal.innerHTML = "";
-  elemShowCal.innerHTML = "";
+  elemCal.innerHTML = "0";
+  elemShowCal.innerHTML = "0";
 };
 
 let sum = (a, b) => a + b;
