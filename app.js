@@ -127,16 +127,18 @@ let Calculate = (a, id, b) => {
   return parseFloat(temp.toFixed(10));
 };
 let Equal = () => {
-  rtResult =
-    preResult == null
-      ? rtResult
-      : Calculate(parseFloat(preResult), preMath, parseFloat(rtResult));
-  console.log(preResult + " " + preMath + " " + rtResult);
-  isPrior = false;
-  preResult = null;
-  preMath = null;
-  ShowResult();
-  elemCal.innerHTML = rtResult;
+  if (!math) {
+    rtResult =
+      preResult == null
+        ? rtResult
+        : Calculate(parseFloat(preResult), preMath, parseFloat(rtResult));
+    console.log(preResult + " " + preMath + " " + rtResult);
+    isPrior = false;
+    preResult = null;
+    preMath = null;
+    ShowResult();
+    elemCal.innerHTML = rtResult;
+  }
   math = null;
 };
 let ShowResult = () => {
