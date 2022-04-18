@@ -1,8 +1,11 @@
 var math;
+var preMath;
 var result;
+var preResult;
 var innerResult = 0;
 var rtResult; // real-time Result
-var priorResult = null;
+var priorResult;
+var prePrior; // pre prior result
 var isClear = true;
 var isPrior = false;
 var isMath = false;
@@ -20,7 +23,6 @@ function Input(id) {
   if (isMath) {
     showCal.push(math);
     Clear();
-
     isMath = false;
   }
 
@@ -58,43 +60,82 @@ function Input(id) {
 let Update = () => {
   if (showCal.length == 0) rtResult = innerResult;
   else rtResult = Calculate(parseFloat(result), math, parseFloat(innerResult));
+  console.log(preResult + " " + math + " " + rtResult);
 
   elemCal.innerHTML = rtResult;
   console.log("real time Result: " + rtResult);
 };
 let RecognizeCal = (id) => {
+  if (rtResult == null) return;
+  if (!isPrior) {
+    priorResult = innerResult;
+  }
+
   math = id;
   if (!isMath) showCal.push(elemResult.innerHTML);
+  if (id == "mul" || id == "div") {
+    preResult = preResult ?? result;
+    if (priorResult == innerResult) rtResult = priorResult;
+    isPrior = true;
+  } else if (id == "add" || id == "sub") {
+    rtResult =
+      preResult == null
+        ? rtResult
+        : Calculate(parseFloat(preResult), preMath, parseFloat(rtResult));
+    console.log(preResult + " " + preMath + " " + rtResult);
+    isPrior = false;
+    preResult = null;
+    preMath = id;
+  }
+  //   console.log("prePrior : " + prePrior);
+  if (isPrior && priorResult != innerResult)
+    priorResult = Calculate(
+      parseFloat(priorResult),
+      math,
+      parseFloat(innerResult)
+    );
+
+  console.log("priorResult: " + priorResult);
+  console.log("result: " + result);
+
   ShowResult();
   isMath = true;
 };
 
 let Calculate = (a, id, b) => {
-  math = id;
+  //   math = id;
+  var temp;
   switch (id) {
     case "add":
-      isPrior = false;
-      rtResult = sum(a, b);
+      temp = sum(a, b);
       break;
     case "sub":
-      isPrior = false;
-      rtResult = sub(a, b);
+      temp = sub(a, b);
       break;
     case "mul":
-      rtResult = mul(a, b);
-      isPrior = true;
+      temp = mul(a, b);
       break;
     case "div":
-      rtResult = div(a, b);
-      isPrior = true;
+      temp = div(a, b);
       break;
     default:
-      rtResult = b;
+      temp = b;
       break;
   }
-  return parseFloat(rtResult.toFixed(10));
+  return parseFloat(temp.toFixed(10));
 };
-
+let Equal = () => {
+  rtResult =
+    preResult == null
+      ? rtResult
+      : Calculate(parseFloat(preResult), preMath, parseFloat(rtResult));
+  console.log(preResult + " " + preMath + " " + rtResult);
+  isPrior = false;
+  preResult = null;
+  preMath = null;
+  ShowResult();
+  elemCal.innerHTML = rtResult;
+};
 let ShowResult = () => {
   result = parseFloat(rtResult ?? result);
   elemResult.innerHTML = parseFloat(result.toFixed(10));
@@ -108,14 +149,13 @@ let Negative = () => {
 };
 
 let Percent = () => {
-  elemResult.innerHTML = elemResult.textContent / 100;
+  elemResult.innerHTML = parseFloat(elemResult.textContent) / 100;
   innerResult = elemResult.textContent;
   Update();
 };
 
 let Comma = () => {
   isComma = true;
-
   return (elemResult.innerHTML = elemResult.textContent + ".");
 };
 

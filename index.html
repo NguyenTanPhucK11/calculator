@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col white" id="clear" onclick="Clear()">AC</div>
         <div class="col white" onclick="Negative()">+/-</div>
-        <div class="col white" onclick="Percent()">%</div>
+        <div class="col white" id="percent" onclick="Percent()">%</div>
         <div class="col orange" id="div" onclick="RecognizeCal(id)">÷</div>
       </div>
       <div class="row">
@@ -45,7 +45,7 @@
           <div class="zero ghostwhite" id="0" onclick="Input(id)">0</div>
         </div>
         <div class="col ghostwhite" onclick="Comma()">,</div>
-        <div class="col orange" onclick="ShowResult()">=</div>
+        <div class="col orange" onclick="Equal()">=</div>
       </div>
       <div class="showCal" id="showCal">0</div>
       <div class="cal" id="cal">0</div>
