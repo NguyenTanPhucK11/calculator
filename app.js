@@ -137,6 +137,7 @@ let Equal = () => {
   preMath = null;
   ShowResult();
   elemCal.innerHTML = rtResult;
+  math = null;
 };
 let ShowResult = () => {
   result = parseFloat(rtResult ?? result);
@@ -165,6 +166,7 @@ let Clear = () => {
   isComma = false;
   if (isClear) {
     elemResult.innerHTML = 0;
+    innerResult = 0;
     elemClear.innerHTML = "AC";
     isClear = false;
   } else AllClear();
@@ -187,6 +189,10 @@ let AllClear = () => {
   isEqual = false;
   showCal = []; // show calculate
   innerCal = "";
+  elemResult.innerHTML = "";
+
+  elemCal.innerHTML = "";
+  elemShowCal.innerHTML = "";
 };
 
 let sum = (a, b) => a + b;
