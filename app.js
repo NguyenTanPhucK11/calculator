@@ -198,6 +198,41 @@ let AllClear = () => {
   elemShowCal.innerHTML = "0";
 };
 
+document.addEventListener("keydown", (event) => {
+  const name = event.key;
+  if (event.key > "0" && event.key < "9") Input(name);
+  switch (name) {
+    case "+":
+      RecognizeCal("add");
+      break;
+    case "-":
+      RecognizeCal("sub");
+      break;
+    case "*":
+      RecognizeCal("mul");
+      break;
+    case "/":
+      RecognizeCal("div");
+      break;
+    case "Enter":
+      Equal();
+      break;
+    case "%":
+      Percent();
+      break;
+    case "_":
+      Negative();
+      break;
+    case ".":
+      Comma();
+      break;
+    case "Backspace":
+      Clear();
+      break;
+    default:
+  }
+});
+
 let sum = (a, b) => a + b;
 let sub = (a, b) => a - b;
 let mul = (a, b) => a * b;
