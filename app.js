@@ -160,8 +160,9 @@ let Percent = () => {
 };
 
 let Comma = () => {
+  if (elemResult.textContent == 0) elemResult.textContent = 0;
+  if (!isComma && !isMath) elemResult.innerHTML = elemResult.textContent + ".";
   isComma = true;
-  return (elemResult.innerHTML = elemResult.textContent + ".");
 };
 
 let Clear = () => {
