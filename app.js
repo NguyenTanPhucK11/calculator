@@ -172,18 +172,21 @@ let Clear = () => {
 
 let AllClear = () => {
   math;
-  result = null;
+  preMath;
+  result;
+  preResult;
   innerResult = 0;
-  priorResult = null;
+  rtResult; // real-time Result
+  priorResult;
+  prePrior; // pre prior result
   isClear = true;
   isPrior = false;
   isMath = false;
   isComma = false;
   isShowCal = false;
-  showCal = [];
-  elemResult.innerHTML = 0;
-  elemCal.innerHTML = 0;
-  elemShowCal.innerHTML = 0;
+  isEqual = false;
+  showCal = []; // show calculate
+  innerCal = "";
 };
 
 let sum = (a, b) => a + b;
